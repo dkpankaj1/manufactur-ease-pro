@@ -1,4 +1,6 @@
 import React, { lazy, useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import { usePage } from '@inertiajs/react';
 
 import createNewBtnDropdownItem from '../menus/createNewBtnDropdownItem'
 import mainMenu from '../menus/MainMenu'
@@ -6,8 +8,8 @@ import mainMenu from '../menus/MainMenu'
 import '../../assets/css/bootstrap.min.css';
 import '../../assets/css/icons.min.css';
 import '../../assets/css/theme.min.css';
-
-
+import 'react-toastify/dist/ReactToastify.css';
+import Breadcrumb from '../Components/Breadcrumb';
 
 
 const ProfileDropdown = lazy(() => import('../Components/ProfileDropdown'))
@@ -16,18 +18,22 @@ const SidebarMenuItem = lazy(() => import('../Components/SidebarMenuItem'))
 const DashboardFooter = lazy(() => import('../Components/DashboardFooter'))
 
 
-function AuthLayout({children}) {
+function AuthLayout({ children }) {
 
     const [showSidebar, setShowSidebar] = useState(false);
+    const { flash } = usePage().props;
 
     useEffect(() => {
-
         const bodyClasses = document.body.classList;
         showSidebar
             ? bodyClasses.add('enable-vertical-menu')
             : bodyClasses.remove('enable-vertical-menu')
-
     }, [showSidebar])
+
+    useEffect(() => {
+        flash.success && toast.success(flash.success);
+        flash.danger && toast.error(flash.danger);
+    }, [flash]);
 
     return (
         <>
@@ -37,18 +43,16 @@ function AuthLayout({children}) {
                     <div className="navbar-header">
 
                         <div className="d-flex align-items-left">
-                            
+
                             <button
                                 type="button"
-                                className="btn btn-sm mr-2 d-lg-none px-3 font-size-16 header-item waves-effect"
+                                className="btn btn-sm mr-2 d-lg-none px-3 font-size-16 header-item"
                                 id="vertical-menu-btn"
                                 onClick={() => setShowSidebar(!showSidebar)}
                             >
                                 <i className="fa fa-fw fa-bars"></i>
                             </button>
 
-                            <HeaderDropdownBtn icon={"mdi mdi-plus"} title={"Create New"} items={createNewBtnDropdownItem} />
-                            <HeaderDropdownBtn icon={"mdi mdi-plus"} title={"Create New"} items={createNewBtnDropdownItem} />
                             <HeaderDropdownBtn icon={"mdi mdi-plus"} title={"Create New"} items={createNewBtnDropdownItem} />
                         </div>
 
@@ -87,38 +91,19 @@ function AuthLayout({children}) {
 
                     <div className="page-content">
                         <div className="container-fluid">
-
-
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 className="mb-0 font-size-18">Starter</h4>
-
-                                        <div className="page-title-right">
-                                            <ol className="breadcrumb m-0">
-                                                <li className="breadcrumb-item"><a href="">Pages</a></li>
-                                                <li className="breadcrumb-item active">Starter</li>
-                                            </ol>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                            <Breadcrumb />
                             {children}
-
-
                         </div>
                     </div>
 
-
-                    <DashboardFooter/>
+                    <DashboardFooter />
 
                 </div>
 
 
             </div>
             <div className="menu-overlay" onClick={() => setShowSidebar(false)}></div>
+            <ToastContainer />
         </>
     )
 }
