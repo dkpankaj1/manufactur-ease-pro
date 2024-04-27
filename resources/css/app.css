@@ -1,3 +1,11 @@
 .navbar-brand-box {
     border-bottom: solid #a2adb7 .25px;
 }
+
+.metismenu li:hover {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.mm-active {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}

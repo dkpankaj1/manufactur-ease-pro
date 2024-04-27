@@ -1,21 +1,22 @@
 import React, { lazy, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+
 
 import createNewBtnDropdownItem from '../menus/createNewBtnDropdownItem'
-import mainMenu from '../menus/MainMenu'
 
 import '../../assets/css/bootstrap.min.css';
 import '../../assets/css/icons.min.css';
 import '../../assets/css/theme.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Breadcrumb from '../Components/Breadcrumb';
 
 
 const ProfileDropdown = lazy(() => import('../Components/ProfileDropdown'))
 const HeaderDropdownBtn = lazy(() => import('../Components/HeaderDropdownBtn'))
-const SidebarMenuItem = lazy(() => import('../Components/SidebarMenuItem'))
+const SidebarMenuItem = lazy(() => import('./SidebarMenuItem'))
 const DashboardFooter = lazy(() => import('../Components/DashboardFooter'))
+const Breadcrumb = lazy(() => import('../Components/Breadcrumb'))
+
 
 
 function AuthLayout({ children }) {
@@ -54,6 +55,8 @@ function AuthLayout({ children }) {
                             </button>
 
                             <HeaderDropdownBtn icon={"mdi mdi-plus"} title={"Create New"} items={createNewBtnDropdownItem} />
+                            <HeaderDropdownBtn icon={"mdi mdi-plus"} title={"Create New"} items={createNewBtnDropdownItem} />
+
                         </div>
 
                         <div className="d-flex align-items-center">
@@ -68,18 +71,16 @@ function AuthLayout({ children }) {
                     <div className="h-100">
 
                         <div className="navbar-brand-box">
-                            <a href="#" className="logo">
+                            <Link href={route('dashboard')} className="logo">
                                 <span>
                                     X-acton
                                 </span>
-                            </a>
+                            </Link>
                         </div>
 
                         <div id="sidebar-menu">
                             <ul className="metismenu list-unstyled" id="side-menu">
-                                {mainMenu.map((item, index) => (
-                                    <SidebarMenuItem key={index} item={item} />
-                                ))}
+                                <SidebarMenuItem />
                             </ul>
 
                         </div>

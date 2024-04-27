@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
+use App\Traits\AuthorizationFilter;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,7 +13,7 @@ class ProfileController extends Controller
 {
     public function edit(Request $request)
     {
-
+        
         $breadcrumb = [
             "title" => "Profile",
             "items" => Breadcrumbs::generate('profile')
