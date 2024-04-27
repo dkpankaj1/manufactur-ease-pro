@@ -6,7 +6,7 @@ const LinkButton = lazy(() => import('../../Components/LinkButton'))
 const DeleteBtn = lazy(() => import('../../Components/DeleteBtn'))
 
 function List({ users }) {
-    console.log(users)
+
     return (
         <AuthLayout>
             <Head title='User List' />
